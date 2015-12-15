@@ -105,20 +105,54 @@ class Present
 
     public function getAreaOfSmallestSide()
     {
-        $sizes = [];
+		$smallest = $this->getSmallestSideBySurfaceArea();
+		return $smallest->getSurfaceArea();
+    }
+
+	private function getSmallestSideBySurfaceArea()
+	{
+		$sizes = [];
 		foreach ($this->sides as $sideNumber => $side) {
 			$sizes[$sideNumber] = $side->getSurfaceArea();
 		}
 		$sizes = array_unique($sizes);
 		asort($sizes);
 
-		$smallest = array_shift($sizes);
-		return $smallest;
-    }
+		reset($sizes);
+		return $this->sides[key($sizes)];
+	}
 
     public function getTotalAmountOfWrappingPaperRequired()
     {
         return $this->getTotalSurfaceArea() + $this->getAreaOfSmallestSide();
+    }
+
+    public function getVolume()
+    {
+        return $this->width * $this->length * $this->height;
+    }
+
+    public function getShortestPerimeter()
+    {
+		$smallest = $this->getSmallestSideByPerimeter();
+		return $smallest->getPerimeterLength();
+    }
+
+	private function getSmallestSideByPerimeter()
+	{
+		$sizes = [];
+		foreach ($this->sides as $sideNumber => $side) {
+			$sizes[$sideNumber] = $side->getPerimeterLength();
+		}
+		$sizes = array_unique($sizes);
+		asort($sizes);
+		reset($sizes);
+		return $this->sides[key($sizes)];
+	}
+
+    public function getAmountOfRibbonRequired()
+    {
+        return $this->getVolume() + $this->getShortestPerimeter();
     }
 
 

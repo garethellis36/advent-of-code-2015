@@ -33,4 +33,14 @@ class PresentPileSpec extends ObjectBehavior
 
 		$this->getTotalAmountOfWrappingPaperRequired()->shouldBe(220);
 	}
+
+	public function it_should_be_able_to_calculate_amount_of_ribbon_required(DimensionsParser $parser)
+	{
+		$present1 = new \Day2\Present(["width" => 5, "length" => 5, "height" => 2]); //vol = 50, shortest perimeter = 14
+		$present2 = new \Day2\Present(["width" => 4, "length" => 6, "height" => 3]); //vol = 72, shortest perimeter = 14
+
+		$parser->parse()->shouldBeCalled()->willReturn([$present1, $present2]);
+
+		$this->getTotalAmountOfRibbonRequired()->shouldBe(150);
+	}
 }

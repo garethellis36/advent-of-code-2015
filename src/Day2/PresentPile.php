@@ -19,10 +19,17 @@ class PresentPile
     public function getTotalAmountOfWrappingPaperRequired()
     {
 		$total = 0;
-		$presents = $this->getPresents();
-        foreach ($presents as $present) {
+        foreach ($this->getPresents() as $present) {
 			$total += $present->getTotalAmountOfWrappingPaperRequired();
-			$present->getTotalAmountOfWrappingPaperRequired();
+		}
+		return $total;
+    }
+
+    public function getTotalAmountOfRibbonRequired()
+    {
+		$total = 0;
+		foreach ($this->getPresents() as $k => $present) {
+			$total += $present->getAmountOfRibbonRequired();
 		}
 		return $total;
     }

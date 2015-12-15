@@ -32,4 +32,9 @@ class PresentSideSpec extends ObjectBehavior
 	{
 		$this->getSurfaceArea()->shouldBe(200);
 	}
+
+	public function it_should_be_able_to_calculate_perimeter_length()
+	{
+		$this->getPerimeterLength()->shouldBe(60);
+	}
 }

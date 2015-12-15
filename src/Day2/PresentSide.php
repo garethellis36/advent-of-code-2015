@@ -30,5 +30,10 @@ class PresentSide
         return $this->width * $this->length;
     }
 
+    public function getPerimeterLength()
+    {
+        return (2*$this->width) + (2*$this->length);
+    }
+
 
 }

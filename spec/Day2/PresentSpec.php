@@ -51,4 +51,19 @@ class PresentSpec extends ObjectBehavior
 	{
 		$this->getTotalAmountOfWrappingPaperRequired()->shouldBe(3860);
 	}
+
+	public function it_should_be_able_to_calculate_volume()
+	{
+		$this->getVolume()->shouldBe(12000);
+	}
+
+	public function it_should_be_able_to_calculate_the_shortest_perimeter_of_any_one_face()
+	{
+		$this->getShortestPerimeter()->shouldBe(74);
+	}
+
+	public function it_should_be_able_to_calculate_the_amount_of_ribbon_required()
+	{
+		$this->getAmountOfRibbonRequired()->shouldBe(12074);
+	}
 }
