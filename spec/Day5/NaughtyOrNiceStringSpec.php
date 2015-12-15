@@ -52,4 +52,49 @@ class NaughtyOrNiceStringSpec extends ObjectBehavior
 		$this->setInput("pqaaoiue");
 		$this->isNice()->shouldBe(false);
 	}
+
+	public function it_should_be_able_to_determine_the_presence_of_a_repeated_pair_of_non_overlapping_letters()
+	{
+		$this->beConstructedWith("qjhvhtzxzqqjkmpb");
+		$this->hasRepeatedPairOfNonOverlappingLetters()->shouldBe(true);
+
+		$this->setInput("ejbbblkjijl");
+		$this->hasRepeatedPairOfNonOverlappingLetters()->shouldBe(false);
+
+		$this->setInput("ejbbsdkaalkj");
+		$this->hasRepeatedPairOfNonOverlappingLetters()->shouldBe(false);
+	}
+
+	public function it_should_be_able_to_determine_the_presence_of_a_repeated_letter_with_one_letter_in_between()
+	{
+		$this->beConstructedWith("xxyxx");
+		$this->hasRepeatedLetterWithOneLetterInBetween()->shouldBe(true);
+
+		$this->setINput("lkjoijlk");
+		$this->hasRepeatedLetterWithOneLetterInBetween()->shouldBe(false);
+	}
+
+	public function it_should_be_able_to_correctly_determine_nice_under_new_rules()
+	{
+		$this->beConstructedWith("qjhvhtzxzqqjkmpb");
+		$this->isNiceAccordingToNewRules()->shouldBe(true);
+	}
+
+	public function it_should_be_able_to_correctly_determine_nice_under_new_rules_second_example()
+	{
+		$this->beConstructedWith("xxyxx");
+		$this->isNiceAccordingToNewRules()->shouldBe(true);
+	}
+
+	public function it_should_be_able_to_correctly_determine_naughty_under_new_rules_where_no_repeated_letter()
+	{
+		$this->beConstructedWith("uurcxstgmygtbstg");
+		$this->isNiceAccordingToNewRules()->shouldBe(false);
+	}
+
+	public function it_should_be_able_to_correctly_determine_naughty_under_new_rules_where_no_repeated_pair()
+	{
+		$this->beConstructedWith("ieodomkazucvgmuy");
+		$this->isNiceAccordingToNewRules()->shouldBe(false);
+	}
 }

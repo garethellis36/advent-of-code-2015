@@ -55,5 +55,22 @@ class NaughtyOrNiceString
 		}
 		return ($this->getNumberOfVowels() >= $numberOfVowelsRequiredToBeNice && $this->hasRepeatedLetters());
     }
+
+    public function hasRepeatedPairOfNonOverlappingLetters()
+    {
+		$pattern = "/([a-z]{2}).*?\\1/";
+		return (bool)preg_match_all($pattern, $this->input);
+    }
+
+    public function hasRepeatedLetterWithOneLetterInBetween()
+    {
+        $pattern = "/([a-z])[a-z]\\1{1}/";
+		return (bool)preg_match($pattern, $this->input);
+    }
+
+    public function isNiceAccordingToNewRules()
+    {
+        return ($this->hasRepeatedLetterWithOneLetterInBetween() && $this->hasRepeatedPairOfNonOverlappingLetters());
+    }
 }
 
