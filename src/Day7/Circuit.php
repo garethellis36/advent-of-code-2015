@@ -23,4 +23,9 @@ class Circuit
     {
         $this->wires[$wireIdentifier] = $value;
     }
+
+    public function resetAllWires()
+    {
+        $this->wires->resetAll();
+    }
 }

@@ -27,4 +27,9 @@ class WiresCollection implements \ArrayAccess
 			unset($this->wires[$offset]);
 		}
 	}
+
+    public function resetAll()
+    {
+        $this->wires = [];
+    }
 }

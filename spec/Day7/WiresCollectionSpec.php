@@ -24,4 +24,13 @@ class WiresCollectionSpec extends ObjectBehavior
 		unset($this["x"]);
 		$this["x"]->shouldBeNull();
 	}
+
+	public function it_should_be_able_to_reset_all()
+	{
+		$this["x"] = 5;
+		$this["y"] = 6;
+		$this->resetAll();
+		$this["x"]->shouldBe(null);
+		$this["y"]->shouldBe(null);
+	}
 }
