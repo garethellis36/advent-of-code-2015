@@ -2,9 +2,17 @@
 
 namespace Day7;
 
-class Circuit implements \ArrayAccess
+class Circuit
 {
+	/**
+	 * @var WiresCollection
+	 */
 	private $wires;
+
+    public function __construct(WiresCollection $wires)
+    {
+        $this->wires = $wires;
+    }
 
 	public function sendSignal($int, $target)
 	{
@@ -39,34 +47,6 @@ class Circuit implements \ArrayAccess
 	public function getWireStatus($wireIdentifier)
 	{
 		return $this->wires[$wireIdentifier];
-	}
-
-
-	/**
-	 * ArrayAccess implementation below
-	 */
-
-	public function offsetExists($offset)
-	{
-		return isset($this->wires[$offset]);
-	}
-
-	public function offsetGet($offset)
-	{
-		if (isset($this->wires[$offset])) {
-			return $this->wires[$offset];
-		}
-		return 0;
-	}
-
-	public function offsetSet($offset, $value)
-	{
-		$this->wires[$offset] = $value;
-	}
-
-	public function offsetUnset($offset)
-	{
-		$this->wires[$offset] = 0;
 	}
 }
 
