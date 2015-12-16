@@ -13,12 +13,18 @@ class Puzzle1
 		$input = file_get_contents(__DIR__ . "/../../input/Day7/Puzzle1");
 		$instructions = explode(PHP_EOL, $input);
 
-		sort($instructions);
+		while (true) {
+			foreach ($instructions as $k => $instruction) {
+				if ($parser->parse($instruction) !== false) {
+					unset($instructions[$k]);
+				}
+			}
 
-		foreach ($instructions as $instruction) {
-			$parser->parse($instruction);
+			if (empty($instructions)) {
+				break;
+			}
 		}
 
-		echo "Signal provided to wire 'a':" . $circuit->getWireStatus("a");
+		echo "Signal provided to wire 'a':" . $circuit->getWireValue("a");
 	}
 }

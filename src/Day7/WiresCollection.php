@@ -13,10 +13,7 @@ class WiresCollection implements \ArrayAccess
 
 	public function offsetGet($offset)
 	{
-		if (isset($this->wires[$offset])) {
-			return $this->wires[$offset];
-		}
-		return 0;
+		return isset($this->wires[$offset]) ? $this->wires[$offset] : null;
 	}
 
 	public function offsetSet($offset, $value)
@@ -26,6 +23,8 @@ class WiresCollection implements \ArrayAccess
 
 	public function offsetUnset($offset)
 	{
-		$this->wires[$offset] = 0;
+		if (isset($this->wires[$offset])) {
+			unset($this->wires[$offset]);
+		}
 	}
 }

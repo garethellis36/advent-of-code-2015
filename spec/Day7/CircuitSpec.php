@@ -4,11 +4,10 @@ namespace spec\Day7;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Day7\WiresCollection;
 
 class CircuitSpec extends ObjectBehavior
 {
-	public function let(WiresCollection $wires)
+	public function let(\Day7\WiresCollection $wires)
 	{
 		$this->beConstructedWith($wires);
 	}
@@ -18,37 +17,17 @@ class CircuitSpec extends ObjectBehavior
         $this->shouldHaveType('Day7\Circuit');
     }
 
-	public function it_should_be_able_to_provide_an_integer_signal_to_a_wire(WiresCollection $wires)
+	public function it_should_be_able_to_report_the_value_of_a_given_wire(\Day7\WiresCollection $wires)
 	{
-		$wires->offsetSet("z", 10)->shouldBeCalled();
-		$wires->offsetGet("z")->shouldBeCalled()->willReturn(10);
-		$this->sendSignal(10, "z");
-		$this->getWireStatus("z")->shouldBe(10);
+		$wires->offsetGet("x")->shouldBeCalled()->willReturn(null);
+		$this->getWireValue("x")->shouldBeNull();
 	}
 
-	public function it_should_be_able_to_handle_bitwise_or(WiresCollection $wires)
+	public function it_should_be_able_to_send_a_signal_to_a_wire(\Day7\WiresCollection $wires)
 	{
-		$this->sendSignalOr("x", "y", "z");
-
-	}
-
-	public function it_should_be_able_to_handle_bitwise_and(WiresCollection $wires)
-	{
-		$this->sendSignalAnd("x", "y", "z");
-	}
-
-	public function it_should_be_able_to_handle_bitwise_not(WiresCollection $wires)
-	{
-		$this->sendSignalNot("x", "y");
-	}
-
-	public function it_should_be_able_to_handle_bitwise_left_shift(WiresCollection $wires)
-	{
-		$this->sendSignalLShift("x", 15, "z");
-	}
-
-	public function it_should_be_able_to_handle_bitwise_right_shift(WiresCollection $wires)
-	{
-		$this->sendSignalRShift("x", 15, "z");
+		$wires->offsetSet("y", 5)->shouldBeCalled();
+		$wires->offsetGet("y")->shouldBeCalled()->willReturn(5);
+		$this->sendSignal("y", 5);
+		$this->getWireValue("y")->shouldBe(5);
 	}
 }
