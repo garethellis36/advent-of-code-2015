@@ -2,7 +2,7 @@
 
 namespace Day6;
 
-class LightingGrid
+class LightingGrid implements ControllableLightingGrid
 {
 	private $lights = [];
 
@@ -11,6 +11,11 @@ class LightingGrid
 		$this->lights[$x . "-" . $y] = "on";
 	}
 
+	/**
+	 * @param $x
+	 * @param $y
+	 * @return bool indicates whether light is on at co-ordinate
+	 */
     public function isLightOnAt($x, $y)
     {
 		$coordinate = $x . "-" . $y;

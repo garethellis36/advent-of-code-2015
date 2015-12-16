@@ -2,13 +2,13 @@
 
 namespace spec\Day6;
 
-use Day6\LightingGrid;
+use Day6\ControllableLightingGrid;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class InstructionsParserSpec extends ObjectBehavior
 {
-	public function let (LightingGrid $grid)
+	public function let (ControllableLightingGrid $grid)
 	{
 		$this->beConstructedWith($grid);
 	}
@@ -18,7 +18,7 @@ class InstructionsParserSpec extends ObjectBehavior
         $this->shouldHaveType('Day6\InstructionsParser');
     }
 
-	public function it_should_be_able_to_parse_an_instruction_to_turn_on(LightingGrid $grid)
+	public function it_should_be_able_to_parse_an_instruction_to_turn_on(ControllableLightingGrid $grid)
 	{
 		$grid->turnOn(1,1)->shouldBeCalledTimes(1);
 		$grid->turnOn(1,2)->shouldBeCalledTimes(1);

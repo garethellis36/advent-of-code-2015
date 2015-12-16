@@ -9,7 +9,7 @@ class LightingGridSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Day6\LightingGrid');
+        $this->shouldHaveType('Day6\ControllableLightingGrid');
     }
 
 	public function it_should_be_able_to_turn_on_a_light()

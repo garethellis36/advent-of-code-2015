@@ -6,7 +6,7 @@ class InstructionsParser
 {
 	private $grid;
 
-	public function __construct(LightingGrid $grid)
+	public function __construct(ControllableLightingGrid $grid)
 	{
 		$this->grid = $grid;
 	}
