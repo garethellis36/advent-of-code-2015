@@ -53,5 +53,21 @@ class ListEntry
 
 		return $charsInMemory;
     }
+
+    public function countNumberOfCharsInStringCodeWhenEscaped()
+    {
+        $input = $this->input;
+		$length = 0;
+		foreach (str_split($input) as $char) {
+			//echo $char . PHP_EOL;
+			if ($char == '"' || $char == '\\') {
+				$length += 2;
+			} else {
+				$length++;
+			}
+		}
+		//add the quote marks and return
+		return $length + 2;
+    }
 }
 
