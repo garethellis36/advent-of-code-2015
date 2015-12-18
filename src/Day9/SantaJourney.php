@@ -18,12 +18,6 @@ class SantaJourney
     {
 		$distance = 0;
 
-		$names = [];
-		foreach ($this->cities as $city) {
-			$names[] = $city->getName();
-		}
-		//echo PHP_EOL . implode(" -> ", $names);
-
 		$cities = array_values($this->cities);
 		$keys = array_keys($cities);
 
@@ -31,7 +25,6 @@ class SantaJourney
 		foreach ($cities as $key => $city) {
 
 			if ($key == $lastKey) {
-				//echo PHP_EOL . "Total: " . $distance . PHP_EOL;
 				return $distance;
 			}
 

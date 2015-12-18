@@ -88,4 +88,55 @@ class JourneyPlannerSpec extends ObjectBehavior
 		$shortestJourney->shouldBeAnInstanceOf(SantaJourney::class);
 		$shortestJourney->distance()->shouldBe(605);
 	}
+
+	public function it_should_be_able_to_calculate_the_longest_possible_route(Permutations $calc, CitiesCollection $cities, City $london, City $belfast, City $dublin)
+	{
+		$london->beConstructedWith(["London", [
+			"Dublin" => 464,
+			"Belfast" => 518,
+		]]);
+
+		$london->distanceTo("Belfast")->shouldBeCalled()->willReturn(518);
+		$london->distanceTo("Dublin")->shouldBeCalled()->willReturn(464);
+		$london->getName()->shouldBeCalled()->willReturn("London");
+
+		$belfast->beConstructedWith(["Belfast", [
+			"Dublin" => 141,
+			"London" => 518,
+		]]);
+
+		$belfast->getName()->shouldBeCalled()->willReturn("Belfast");
+		$belfast->distanceTo("Dublin")->shouldBeCalled()->willReturn(141);
+		$belfast->distanceTo("London")->shouldBeCalled()->willReturn(518);
+
+		$dublin->beConstructedWith(["Dublin", [
+			"London" => 464,
+			"Belfast" => 141,
+		]]);
+
+		$dublin->distanceTo("Belfast")->shouldBeCalled()->willReturn(141);
+		$dublin->distanceTo("London")->shouldBeCalled()->willReturn(464);
+		$dublin->getName()->shouldBeCalled()->willReturn("Dublin");
+
+
+		$keys = [0,1,2];
+		$cities->keys()->shouldBeCalled()->willReturn($keys);
+
+		$cities->offsetGet(0)->shouldBeCalled()->willReturn($london);
+		$cities->offsetGet(1)->shouldBeCalled()->willReturn($belfast);
+		$cities->offsetGet(2)->shouldBeCalled()->willReturn($dublin);
+
+		$calc->calculate($keys)->shouldBeCalled()->willReturn([
+			[0,1,2],
+			[0,2,1],
+			[1,2,0],
+			[1,0,2],
+			[2,1,0],
+			[2,0,1],
+		]);
+
+		$longestJourney = $this->calculateLongestRoute();
+		$longestJourney->shouldBeAnInstanceOf(SantaJourney::class);
+		$longestJourney->distance()->shouldBe(982);
+	}
 }
