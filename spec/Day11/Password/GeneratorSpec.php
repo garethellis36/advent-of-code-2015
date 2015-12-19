@@ -32,7 +32,7 @@ class GeneratorSpec extends ObjectBehavior
 		$validator = new Validator();
         $this->beConstructedWith($incrementer, $validator);
 
-        //$this->nextValidPassword("ghijklmn")->shouldBe("ghjaabcc");
+        $this->nextValidPassword("abcdefgh")->shouldBe("abcdffaa");
 	}
 
 	public function it_should_know_to_wrap_appropriately(LetterIncrementer $incrementer)
