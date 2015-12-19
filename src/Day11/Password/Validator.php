@@ -7,7 +7,7 @@ class Validator
 	public function hasStraightOfCharacters($password, $straightLength = 3)
 	{
 		$last = null;
-		$straight = 0;
+		$straight = 1;
 		foreach (str_split($password) as $char) {
 
 			if ($straight == $straightLength) {
@@ -20,7 +20,7 @@ class Validator
 			if ($char == $lastCharIncremented) {
 				$straight++;
 			} else {
-				$straight = 0;
+				$straight = 1;
 			}
 			$last = $char;
 		}

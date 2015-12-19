@@ -14,7 +14,7 @@ class ValidatorSpec extends ObjectBehavior
 
 	public function it_should_be_able_to_detect_presence_of_straight_of_characters()
 	{
-		$this->hasStraightOfCharacters("hijklmmn")->shouldBe(true);
+		$this->hasStraightOfCharacters("ghjaabcc")->shouldBe(true);
 	}
 
 	public function it_should_be_able_to_detect_absence_of_straight_of_characters()
@@ -44,7 +44,7 @@ class ValidatorSpec extends ObjectBehavior
 
 	public function it_should_be_able_to_detect_a_valid_password_under_puzzle1_rules()
 	{
-		$this->isValidUnderPuzzle1Rules("abcdffaa")->shouldBe(true);
+		$this->isValidUnderPuzzle1Rules("ghjaabcc")->shouldBe(true);
 	}
 
 	public function it_should_be_able_to_detect_an_invalid_password_under_puzzle1_rules()
