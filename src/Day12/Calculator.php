@@ -18,7 +18,7 @@ class Calculator
     {
         $total = 0;
         foreach ($array as $element) {
-            if ($element == "red" && $ignoreRed && !is_array($array)) {
+            if ($element === "red" && $ignoreRed && !is_array($array)) {
                 return 0;
             }
             if (is_array($element) || $element instanceof \stdClass) {
