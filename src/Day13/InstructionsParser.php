@@ -25,7 +25,7 @@ class InstructionsParser
 
             $parts = explode(" ", $instruction);
 
-            $change = (int)($parts[2] == "gain" ? $parts[3] : -$parts[1]);
+            $change = (int)($parts[2] == "gain" ? $parts[3] : (0 - $parts[3]));
 
             $name = $parts[0];
             $otherPerson = str_replace(".", "", $parts[10]);
