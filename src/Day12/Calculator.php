@@ -6,16 +6,23 @@ class Calculator
 {
     public function sum($string)
     {
-        $accounts = json_decode($string, true);
-        return $this->iterate($accounts);
+        return $this->iterate(json_decode($string));
     }
 
-    private function iterate(array $array)
+    public function sumIgnoringRed($string)
+    {
+        return $this->iterate(json_decode($string), true);
+    }
+
+    private function iterate($array, $ignoreRed = false)
     {
         $total = 0;
         foreach ($array as $element) {
-            if (is_array($element)) {
-                $total += $this->iterate($element);
+            if ($ignoreRed && $element == "red" && !is_array($array)) {
+                return 0;
+            }
+            if (is_array($element) || $element instanceof \stdClass) {
+                $total += $this->iterate($element, $ignoreRed);
             } elseif (is_int($element)) {
                 $total += $element;
             }

@@ -31,4 +31,19 @@ class CalculatorSpec extends ObjectBehavior
     {
         $this->sum('{"a":{"b":4},"c":-1}')->shouldBe(3);
     }
+
+    public function it_should_be_able_to_ignore_objects_with_red_properties()
+    {
+        $this->sumIgnoringRed('{"d":"red","e":[1,2,3,4],"f":5}')->shouldBe(0);
+    }
+
+    public function it_should_not_ignore_red_in_arrays()
+    {
+        $this->sumIgnoringRed('[1,"red",5]')->shouldBe(6);
+    }
+
+    public function it_should_be_able_to_ignore_red_in_child_objects()
+    {
+        $this->sumIgnoringRed('[1,{"c":"red","b":2},3]')->shouldBe(4);
+    }
 }
