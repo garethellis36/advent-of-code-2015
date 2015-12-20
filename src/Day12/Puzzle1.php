@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: garethellis
- * Date: 19/12/2015
- * Time: 21:23
- */
 
 namespace Day12;
 
