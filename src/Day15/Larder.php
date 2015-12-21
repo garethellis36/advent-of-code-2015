@@ -38,4 +38,9 @@ class Larder implements \ArrayAccess, \Countable
 	{
 		return count($this->ingredients);
 	}
+
+    public function ingredients()
+    {
+        return array_keys($this->ingredients);
+    }
 }

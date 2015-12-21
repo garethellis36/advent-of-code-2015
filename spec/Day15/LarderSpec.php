@@ -25,4 +25,12 @@ class LarderSpec extends ObjectBehavior
 		$this[] = $butterscotch;
 		$this["Butterscotch"]->shouldBe($butterscotch);
 	}
+
+	public function it_should_be_able_to_return_an_array_of_ingredient_names(Ingredient $butterscotch)
+	{
+		$butterscotch->name()->shouldBeCalled()->willReturn("Butterscotch");
+
+		$this[] = $butterscotch;
+		$this->ingredients()->shouldBe(["Butterscotch"]);
+	}
 }
