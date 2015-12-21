@@ -73,5 +73,13 @@ class RecipeSpec extends ObjectBehavior
 
 		$this->totalScoreForRecipe()->shouldBe(62842880);
 	}
+
+	public function it_should_know_its_quantities()
+	{
+		$this->quantities()->shouldBe([
+			"Butterscotch" => 44,
+			"Cinnamon" => 56
+		]);
+	}
 }
 

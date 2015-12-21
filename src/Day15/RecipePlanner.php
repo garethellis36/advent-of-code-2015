@@ -43,5 +43,30 @@ class RecipePlanner
 		}
 		return $megaCookie;
     }
+
+    public function megaCookieWithCalories($teaspoons, $calories)
+    {
+		$megaCookie = null;
+		$ingredientNames = $this->larder->ingredients();
+		foreach ($this->combinations->generate($teaspoons) as $combination) {
+
+			$quantities = [];
+			foreach ($combination as $k => $amount) {
+				$ingredient = $ingredientNames[$k];
+				$quantities[$ingredient] = $amount;
+			}
+
+			$recipe = new Recipe($this->larder, $teaspoons, $quantities);
+
+			if ($recipe->totalScoreForProperty("calories") != $calories) {
+				continue;
+			}
+
+			if (!$megaCookie || $recipe->totalScoreForRecipe() > $megaCookie->totalScoreForRecipe()) {
+				$megaCookie = $recipe;
+			}
+		}
+		return $megaCookie;
+    }
 }
 

@@ -46,5 +46,10 @@ class Recipe
 		}
 		return array_product($scores);
     }
+
+    public function quantities()
+    {
+        return $this->quantities;
+    }
 }
 
