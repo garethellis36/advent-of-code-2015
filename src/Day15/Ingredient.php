@@ -21,11 +21,11 @@ class Ingredient
 	public function __construct($name, $capacity, $durability, $flavour, $texture, $calories)
 	{
 		$this->name = $name;
-		$this->capacity = $capacity;
-		$this->durability = $durability;
-		$this->flavour = $flavour;
-		$this->texture = $texture;
-		$this->calories = $calories;
+		$this->capacity = (int)$capacity;
+		$this->durability = (int)$durability;
+		$this->flavour = (int)$flavour;
+		$this->texture = (int)$texture;
+		$this->calories = (int)$calories;
 	}
 
 	public function name()
