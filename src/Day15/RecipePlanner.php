@@ -19,6 +19,10 @@ class RecipePlanner
 		$this->combinations = $combinations;
 	}
 
+	/**
+	 * @param $teaspoons
+	 * @return Recipe
+	 */
     public function megaCookie($teaspoons)
     {
 		$megaCookie = null;

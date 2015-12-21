@@ -21,14 +21,7 @@ class Combinations
 			$combinations[] = 0;
 		}
 
-		foreach ($combinations as $k => &$combination) {
-			for ($i = $combination; $i <= $target; $i++) {
-				$combination = $i;
-				if (\array_sum($combinations) == $target) {
-					yield $combinations;
-				}
-			}
-		}
+
 	}
 }
 

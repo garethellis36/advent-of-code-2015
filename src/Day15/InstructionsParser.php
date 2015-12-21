@@ -4,6 +4,10 @@ namespace Day15;
 
 class InstructionsParser
 {
+	/**
+	 * @param $input
+	 * @return Larder
+	 */
 	public function parse($input)
 	{
 		$larder = new Larder();

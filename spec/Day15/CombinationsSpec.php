@@ -13,7 +13,7 @@ class CombinationsSpec extends ObjectBehavior
         $this->shouldHaveType('Day15\Combinations');
     }
 
-	/*public function it_should_generate_all_combinations_of_x_numbers_that_add_up_to_total_y()
+	public function it_should_generate_all_combinations_of_x_numbers_that_add_up_to_total_y()
 	{
 		$this->generate(2,9)->shouldGenerate([
 			[9,0],
@@ -27,7 +27,7 @@ class CombinationsSpec extends ObjectBehavior
 			[1,8],
 			[0,9],
 		]);
-	}*/
+	}
 
 	public function getMatchers()
 	{
