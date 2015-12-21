@@ -7,21 +7,25 @@ class Combinations
 	/**
 	 * Generator
 	 *
-	 * Works out all combinations of $n numbers that add up to $target
+	 * Works out all combinations of four numbers that add up to $target
 	 *
-	 * @param $n
 	 * @param $target
 	 *
 	 * @return array
 	 */
-	public function generate($n, $target)
+	public function generate($target)
 	{
-		$combinations = [];
-		for ($i = 1; $i <= $n; $i++) {
-			$combinations[] = 0;
+		for ($a = 0; $a <= $target; $a++) {
+			for ($b = 0; $b <= $target; $b++) {
+				for ($c = 0; $c <= $target; $c++) {
+					for ($d = 0; $d <= $target; $d++) {
+						if ($a + $b + $c + $d == $target) {
+							yield [$a,$b,$c,$d];
+						}
+					}
+				}
+			}
 		}
-
-
 	}
 }
 

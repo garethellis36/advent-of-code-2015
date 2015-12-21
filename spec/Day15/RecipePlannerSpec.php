@@ -58,11 +58,11 @@ class RecipePlannerSpec extends ObjectBehavior
 	 */
 	private function prepareMocks(Larder $larder, Combinations $combinations, Ingredient $butterscotch, Ingredient $cinnamon)
 	{
-		$combinations->generate(2, 100)->shouldBeCalled()->willReturn($this->combo());
+		$combinations->generate(100)->shouldBeCalled()->willReturn($this->combo());
 
 		$larder->ingredients()->shouldBeCalled()->willReturn(["Butterscotch", "Cinnamon"]);
 
-		$larder->count()->shouldBeCalled()->willReturn(2);
+		//$larder->count()->shouldBeCalled()->willReturn(2);
 
 		$larder->offsetGet("Butterscotch")->shouldBeCalled()->willReturn($butterscotch);
 		$larder->offsetGet("Cinnamon")->shouldBeCalled()->willReturn($cinnamon);

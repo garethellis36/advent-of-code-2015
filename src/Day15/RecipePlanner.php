@@ -27,7 +27,7 @@ class RecipePlanner
     {
 		$megaCookie = null;
 		$ingredientNames = $this->larder->ingredients();
-        foreach ($this->combinations->generate(count($this->larder), $teaspoons) as $combination) {
+        foreach ($this->combinations->generate($teaspoons) as $combination) {
 
 			$quantities = [];
 			foreach ($combination as $k => $amount) {
