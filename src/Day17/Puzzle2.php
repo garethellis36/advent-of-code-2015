@@ -2,8 +2,7 @@
 
 namespace Day17;
 
-
-class Puzzle1
+class Puzzle2
 {
 	use \InputLoaderTrait,
 		\ConsoleTrait;
@@ -12,7 +11,7 @@ class Puzzle1
 	{
 		$input = $this->loadInput("Day17/Puzzle1");
 		$filler = new EggnogFiller(explode(PHP_EOL, $input));
-		$this->write("# combinations: " . count($filler->fill(150)));
+		$this->write("# combinations which use minimum number of containers: " . count($filler->fillMinimumNumberOfContainers(150)));
 	}
 
 }
