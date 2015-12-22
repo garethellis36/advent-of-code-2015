@@ -8,7 +8,8 @@ class Calculator
 
     public function combinations($total, array $containers)
     {
-        $combinations = $this->iterate($total, $containers);
+		$this->containers = $containers;
+        $combinations = $this->iterate($total, array_keys($containers));
         return count($combinations);
     }
 
@@ -20,7 +21,7 @@ class Calculator
      * @param array $temp
      * @return array
      */
-    private function iterate($sum, $array, $combinations = [], $temp = [])
+    private function iterate($total, $array, $combinations = [], $temp = [])
     {
         if (count($temp) && !in_array($temp, $combinations)) {
             $combinations[] = $temp;
@@ -36,20 +37,29 @@ class Calculator
 
                 $add = array_merge($temp, array($elem[0]));
                 sort($add);
-                $combinations = $this->iterate($sum, $copy, $combinations, $add);
+                $combinations = $this->iterate($total, $copy, $combinations, $add);
 
             } else {
 
                 $add = array_merge($temp, array($elem[0]));
                 sort($add);
-                if (array_sum($combinations) == $sum) {
+                if ($this->sum($add) == $total && !in_array($add, $combinations)) {
                     $combinations[] = $add;
                 }
             }
         }
 
-        return array_filter($combinations, function ($combination) use ($sum) {
-            return array_sum($combination) == $sum;
+        return array_filter($combinations, function ($combination) use ($total) {
+            return $this->sum($combination) == $total;
         });
     }
+
+	private function sum($array)
+	{
+		$sum = 0;
+		foreach ($array as $elem) {
+			$sum += $this->containers[$elem];
+		}
+		return $sum;
+	}
 }
