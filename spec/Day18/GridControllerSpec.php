@@ -65,15 +65,12 @@ class GridControllerSpec extends ObjectBehavior
 			"4-6",
 		];
 
+		$grid->getLights()->shouldBeCalled()->willReturn($on);
+
 		$realGrid = new AnimatedLightingGrid($on, 6, 6);
 
 		for ($y = 1; $y <= 6; $y++) {
 			for ($x = 1; $x <= 6; $x++) {
-				if (in_array("{$x}-{$y}", $on)) {
-					$grid->isOnAt($x,$y)->shouldBeCalled()->willReturn(true);
-				} else {
-					$grid->isOnAt($x,$y)->shouldBeCalled()->willReturn(false);
-				}
 				$grid->neighbours($x,$y)->shouldBeCalled()->willReturn($realGrid->neighbours($x,$y));
 			}
 		}

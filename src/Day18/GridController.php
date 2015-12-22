@@ -27,25 +27,26 @@ class GridController
 
 		$lights = [];
 
+		$existingLights = $grid->getLights();
+
+		//loop through grid checking each light for its status + neighbours
 		for ($y = 1; $y <= $verticalSize; $y++) {
 			for ($x =1; $x <= $horizontalSize; $x++) {
 
+				//find out how many neighbour lights are switched on
 				$onNeighbours = 0;
-				$currentlyOn = $grid->isOnAt($x, $y);
-
 				foreach ($grid->neighbours($x, $y) as $neighbour) {
-
-					if ($grid->isOnAt($neighbour[0], $neighbour[1])) {
+					if (in_array($neighbour[0] . "-" . $neighbour[1], $existingLights)) {
 						$onNeighbours++;
 					}
+				}
 
-					if ($currentlyOn && ($onNeighbours == 2 || $onNeighbours == 3)) {
-						$lights[] = "{$x}-{$y}";
-						break;
-					} elseif (!$currentlyOn && $onNeighbours == 3) {
-						$lights[] = "{$x}-{$y}";
-						break;
-					}
+				//work out state for this light for next step
+				$currentlyOn = in_array("{$x}-{$y}", $existingLights);
+				if ($currentlyOn && ($onNeighbours == 2 || $onNeighbours == 3)) {
+					$lights[] = "{$x}-{$y}";
+				} elseif (!$currentlyOn && $onNeighbours == 3) {
+					$lights[] = "{$x}-{$y}";
 				}
 			}
 		}

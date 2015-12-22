@@ -131,5 +131,10 @@ class AnimatedLightingGrid
 	{
 		return $this->verticalSize;
 	}
+
+	public function getLights()
+	{
+		return $this->lights;
+	}
 }
 
