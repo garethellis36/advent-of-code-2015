@@ -4,10 +4,10 @@ namespace Day18;
 
 class AnimatedLightingGrid
 {
-	private $lights = [];
+	protected $lights = [];
 
-	private $horizontalSize;
-	private $verticalSize;
+	protected $horizontalSize;
+	protected $verticalSize;
 
 	public function __construct(array $lights, $horizontalSize = 100, $verticalSize = 100)
 	{
@@ -28,7 +28,7 @@ class AnimatedLightingGrid
 		}));
     }
 
-	private function coordinate($x, $y)
+	protected function coordinate($x, $y)
 	{
 		return "{$x}-{$y}";
 	}
@@ -77,42 +77,42 @@ class AnimatedLightingGrid
 	 * @param $y
 	 * @return array
 	 */
-	private function neighbourToLeft($x, $y)
+	protected function neighbourToLeft($x, $y)
 	{
 		return [$x - 1, $y];
 	}
 
-	private function neighbourToRight($x, $y)
+	protected function neighbourToRight($x, $y)
 	{
 		return [$x + 1, $y];
 	}
 
-	private function neighbourAbove($x, $y)
+	protected function neighbourAbove($x, $y)
 	{
 		return [$x, $y - 1];
 	}
 
-	private function neighbourBelow($x, $y)
+	protected function neighbourBelow($x, $y)
 	{
 		return [$x, $y + 1];
 	}
 
-	private function neighbourAboveAndLeft($x, $y)
+	protected function neighbourAboveAndLeft($x, $y)
 	{
 		return [$x - 1, $y - 1];
 	}
 
-	private function neighbourAboveAndRight($x, $y)
+	protected function neighbourAboveAndRight($x, $y)
 	{
 		return [$x + 1, $y - 1];
 	}
 
-	private function neighbourBelowAndLeft($x, $y)
+	protected function neighbourBelowAndLeft($x, $y)
 	{
 		return [$x - 1, $y + 1];
 	}
 
-	private function neighbourBelowAndRight($x, $y)
+	protected function neighbourBelowAndRight($x, $y)
 	{
 		return [$x + 1, $y + 1];
 	}

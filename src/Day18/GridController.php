@@ -4,7 +4,7 @@ namespace Day18;
 
 class GridController
 {
-	public function startGrid($initialState, $horizontalSize = 100, $verticalSize = 100)
+	public function startGrid($initialState, $horizontalSize = 100, $verticalSize = 100, $broken = false)
 	{
 		$lights = [];
 		$states = str_split(str_replace(PHP_EOL,"",$initialState));
@@ -17,6 +17,10 @@ class GridController
 				$k++;
 			}
 		}
+
+		if ($broken) {
+            return new BrokenAnimatedLightingGrid($lights, $horizontalSize, $verticalSize);
+        }
 		return new AnimatedLightingGrid($lights, $horizontalSize, $verticalSize);
 	}
 

@@ -3,6 +3,7 @@
 namespace spec\Day18;
 
 use Day18\AnimatedLightingGrid;
+use Day18\BrokenAnimatedLightingGrid;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -17,6 +18,12 @@ class GridControllerSpec extends ObjectBehavior
 	{
 		$input = ".#.#.#".PHP_EOL."...##.".PHP_EOL."#....#".PHP_EOL."..#...".PHP_EOL."#.#..#".PHP_EOL."####..";
 		$this->startGrid($input, 6, 6)->shouldBeAnInstanceOf(AnimatedLightingGrid::class);
+	}
+
+	public function it_should_be_able_to_create_a_broken_grid()
+	{
+		$input = ".#.#.#".PHP_EOL."...##.".PHP_EOL."#....#".PHP_EOL."..#...".PHP_EOL."#.#..#".PHP_EOL."####..";
+		$this->startGrid($input, 6, 6, true)->shouldBeAnInstanceOf(BrokenAnimatedLightingGrid::class);
 	}
 
 	public function it_should_create_a_grid_with_the_correct_initial_state()
