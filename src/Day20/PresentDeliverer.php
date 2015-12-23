@@ -10,6 +10,8 @@ class PresentDeliverer
 	private $factor;
 	private $multiplier;
 
+
+
 	public function __construct(FactorInterface $factor, $multiplier = 10)
 	{
 		$this->factor = $factor;
@@ -24,4 +26,17 @@ class PresentDeliverer
 		}
 		return $gifts;
     }
+
+	public function giftsDeliveredToHouseWithMaxPerElf($house, $maxHousesPerElf)
+	{
+		$gifts = 0;
+		foreach ($this->factor->get($house) as $factor) {
+			list($elfNumber, $housesVisited) = $factor;
+			if ($housesVisited > $maxHousesPerElf) {
+				continue;
+			}
+			$gifts += ($elfNumber * $this->multiplier);
+		}
+		return $gifts;
+	}
 }

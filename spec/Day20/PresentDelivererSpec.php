@@ -29,4 +29,15 @@ class PresentDelivererSpec extends ObjectBehavior
 		$factor->get("8")->shouldBeCalled()->willReturn([1,2,4,8]);
 		$this->giftsDeliveredToHouse(8)->shouldBe(150);
 	}
+
+	public function it_should_be_able_to_work_out_the_number_of_gifts_delivered_to_house_eight_with_a_max_number_of_houses_per_elf(FactorInterface $factor)
+	{
+		$factor->get("8")->shouldBeCalled()->willReturn([
+			[1,8],
+			[8,1],
+			[2,4],
+			[4,2],
+		]);
+		$this->giftsDeliveredToHouseWithMaxPerElf(8, 50)->shouldBe(150);
+	}
 }
