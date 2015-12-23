@@ -10,13 +10,14 @@ class Puzzle2
 	public function __invoke()
 	{
 		$elfCalculator = new LimitedHousesElfCalculator();
-		$deliverer = new PresentDeliverer($elfCalculator);
+		$deliverer = new PresentDeliverer($elfCalculator, 11);
 
 		$input = 34000000;
-		$house = 850000;
+		$house = 600000;
 		$maxHousesPerElf = 50;
+
 		while (true) {
-			if ($deliverer->giftsDeliveredToHouse($house) >= $input) {
+			if ($deliverer->giftsDeliveredToHouseWithMaxPerElf($house, $maxHousesPerElf) >= $input) {
 				break;
 			}
 			$house++;
