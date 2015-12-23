@@ -8,6 +8,8 @@ use Prophecy\Argument;
 
 class CombinationsSpec extends ObjectBehavior
 {
+	use \GeneratorMatcherTrait;
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Day15\Combinations');
@@ -28,17 +30,5 @@ class CombinationsSpec extends ObjectBehavior
 			[2,0,0,0],
 		]);
 	}
-	public function getMatchers()
-	{
-		return [
-			'generate' => function ($subject, $value) {
-				if (!$subject instanceof \Traversable) {
-					throw new FailureException('Return value should be instance of \Traversable');
-				}
-				$array = iterator_to_array($subject);
 
-				return $array === $value;
-			}
-		];
-	}
 }
