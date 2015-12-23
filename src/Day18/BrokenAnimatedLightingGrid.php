@@ -11,18 +11,18 @@ class BrokenAnimatedLightingGrid extends AnimatedLightingGrid
     public function __construct(array $lights, $horizontalSize = 100, $verticalSize = 100)
     {
         $this->defaultBrokenLights($horizontalSize, $verticalSize);
-        $lights = $this->getBrokenLights($lights);
+        $lights = array_merge($lights, $this->getBrokenLights());
         parent::__construct($lights, $horizontalSize, $verticalSize);
     }
 
     public function lights(array $lights)
     {
-        parent::lights($this->getBrokenLights($lights));
+        parent::lights(array_merge($lights, $this->getBrokenLights()));
     }
 
-    private function getBrokenLights($lights)
+    public function getBrokenLights()
     {
-        return array_merge($lights, $this->brokenLights);
+        return $this->brokenLights;
     }
 
     /**

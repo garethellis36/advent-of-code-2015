@@ -87,4 +87,73 @@ class GridControllerSpec extends ObjectBehavior
 
 		$this->nextGrid($grid)->shouldBeAnInstanceOf(AnimatedLightingGrid::class);
 	}
+
+	public function it_should_return_a_broken_grid_when_updating_the_grid_to_the_next_state(BrokenAnimatedLightingGrid $grid)
+	{
+		$grid->getBrokenLights()->shouldBeCalled()->willReturn([
+			"1-1",
+			"6-1",
+			"1-6",
+			"6-6",
+		]);
+
+		$grid->lights([
+			"1-1",
+			"3-1",
+			"4-1",
+			"6-1",
+			"1-2",
+			"2-2",
+			"3-2",
+			"4-2",
+			"6-2",
+			"4-3",
+			"5-3",
+			"1-5",
+			"5-5",
+			"1-6",
+			"3-6",
+			"4-6",
+			"5-6",
+			"6-6",
+		])->shouldBeCalled();
+
+		$on = [
+			"1-1",
+			"2-1",
+			"4-1",
+			"6-1",
+			"4-2",
+			"5-2",
+			"1-3",
+			"6-3",
+			"3-4",
+			"1-5",
+			"3-5",
+			"6-5",
+			"1-6",
+			"2-6",
+			"3-6",
+			"4-6",
+			"6-6",
+		];
+
+		$grid->getLights()->shouldBeCalled()->willReturn($on);
+
+		$realGrid = new AnimatedLightingGrid($on, 6, 6);
+
+		for ($y = 1; $y <= 6; $y++) {
+			for ($x = 1; $x <= 6; $x++) {
+				if (($x == 1 & $y == 1) || ($x == 6 && $y == 1) || ($x == 1 && $y == 6) || ($x == 6 && $y == 6)) {
+					continue;
+				}
+				$grid->neighbours($x,$y)->shouldBeCalled()->willReturn($realGrid->neighbours($x,$y));
+			}
+		}
+
+		$grid->horizontalSize()->shouldBeCalled()->willReturn(6);
+		$grid->verticalSize()->shouldBeCalled()->willReturn(6);
+
+		$this->nextGrid($grid)->shouldBeAnInstanceOf(BrokenAnimatedLightingGrid::class);
+	}
 }
