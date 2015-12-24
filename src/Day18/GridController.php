@@ -32,6 +32,7 @@ class GridController
 		$lights = [];
 
 		$existingLights = $grid->getLights();
+
 		$brokenLights = $grid instanceof BrokenAnimatedLightingGrid ? $grid->getBrokenLights() : [];
 
 		//loop through grid checking each light for its status + neighbours

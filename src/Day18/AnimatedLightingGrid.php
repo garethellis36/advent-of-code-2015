@@ -11,7 +11,7 @@ class AnimatedLightingGrid
 
 	public function __construct(array $lights, $horizontalSize = 100, $verticalSize = 100)
 	{
-		$this->lights = $lights;
+		$this->lights($lights);
 		$this->horizontalSize = $horizontalSize;
 		$this->verticalSize = $verticalSize;
 	}
@@ -119,7 +119,7 @@ class AnimatedLightingGrid
 
     public function lights(array $lights)
     {
-        $this->lights = $lights;
+        $this->lights = array_unique($lights);
     }
 
 	public function horizontalSize()

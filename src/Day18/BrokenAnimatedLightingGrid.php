@@ -31,10 +31,11 @@ class BrokenAnimatedLightingGrid extends AnimatedLightingGrid
      */
     private function defaultBrokenLights($horizontalSize, $verticalSize)
     {
-        $this->brokenLights += ["{$horizontalSize}-1",
+        $this->brokenLights = array_merge($this->brokenLights, [
+            "{$horizontalSize}-1",
             "1-{$verticalSize}",
             "{$horizontalSize}-{$verticalSize}"
-        ];
+        ]);
     }
 
 }
