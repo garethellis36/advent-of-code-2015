@@ -40,20 +40,64 @@ class ReplacementRunner
             return false;
         }
 
-        $s=0;
-        $i=0;
+        $s = 0;
+        $i = 0;
 
         $aStrPos = [];
-        while ($i !== false){
+        while ($i !== false) {
 
-            $i = strpos($haystack,$needle,$s);
+            $i = strpos($haystack, $needle, $s);
 
             if (is_integer($i)) {
                 $aStrPos[] = $i;
-                $s = $i+strlen($needle);
+                $s = $i + strlen($needle);
             }
         }
 
         return $aStrPos;
+    }
+
+    use \ConsoleTrait;
+
+    /**
+     * Reduce $molecule to $initial
+     *
+     * @param $startString
+     * @param $molecule
+     * @return int The number of steps required to reduce $molecule to $initial
+     */
+    public function minimumNumberStepsForBuildingMolecule($startString, $targetMolecule)
+    {
+        if ($targetMolecule == $startString) {
+            return 0;
+        }
+
+        $minSteps = 1000000;
+        foreach ($this->replacements as $to => $fromStrings) {
+
+            foreach ($fromStrings as $from) {
+
+                $start = 0;
+                $positions = [];
+
+                while (($pos = strpos($targetMolecule, $from, $start)) !== false) {
+                    $positions[] = $pos;
+                    $start = $pos + 1;
+                }
+
+                foreach ($positions as $position) {
+
+                    $newString = substr_replace($targetMolecule, $to, $position, strlen($from));
+                    $steps = $this->minimumNumberStepsForBuildingMolecule($startString, $newString) + 1;
+
+                    if ($steps < $minSteps) {
+                        $minSteps = $steps;
+                    }
+                }
+
+            }
+
+        }
+        return $minSteps;
     }
 }

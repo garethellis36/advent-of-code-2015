@@ -29,4 +29,14 @@ class ReplacementRunnerSpec extends ObjectBehavior
             "HHHH",
         ]);
     }
+
+    public function it_should_be_able_to_get_the_min_steps_to_build_a_molecule()
+    {
+        $this->beConstructedWith([
+            "e" => ["H","O",],
+            "H" => ["HO", "OH",],
+            "O" => ["HH",],
+        ]);
+        $this->minimumNumberStepsForBuildingMolecule("e", "HOHOHO")->shouldBe(6);
+    }
 }
