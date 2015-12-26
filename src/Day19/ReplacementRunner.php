@@ -66,24 +66,36 @@ class ReplacementRunner
      * @param $molecule
      * @return int The number of steps required to reduce $molecule to $initial
      */
-    public function minimumNumberStepsForBuildingMolecule($startString, $targetMolecule)
+    public function minimumNumberStepsForBuildingMolecule($targetMolecule)
     {
-        $steps = 0;
-        if ($startString === $targetMolecule) {
-            return $steps;
+        $allTos = [];
+        foreach ($this->replacements as $from => $toStrings) {
+            $allTos = array_merge($allTos, $toStrings);
         }
 
-        return $this->iterativelyGetPossibleReplacements($targetMolecule, $this->possibleReplacements($startString), 1);
-    }
+        $pattern = "/(".implode("|", $allTos).")/";
 
-    private function iterativelyGetPossibleReplacements($targetMolecule, $possibles, $steps)
-    {
-        if (in_array($targetMolecule, $possibles)) {
-            return $steps;
-        }
-        $steps++;
-        foreach ($possibles as $possible) {
-            $this->iterativelyGetPossibleReplacements($targetMolecule, $this->possibleReplacements($possible), $steps);
-        }
+        preg_match_all($pattern, $targetMolecule, $matches);
+
+        $allElements = $matches[0];
+        $numberElements = count($allElements);
+
+        //elements with 'Rn' or 'Ar'
+        $bracketElements = array_filter($allElements, function ($element) {
+            return (strpos($element, 'Rn') !== false || strpos($element, 'Ar') !== false)
+                && strpos($element, 'Y') === false;
+        });
+        $numberBracketElements = count($bracketElements);
+
+        //elements with 'Y'
+        $commaElements = array_filter($allElements, function ($element) {
+            return (strpos($element, 'Y') !== false);
+        });
+        $numberCommaElements = count($commaElements);
+
+        return $numberElements
+                - $numberBracketElements
+                - 2 * $numberCommaElements
+                - 1;
     }
 }

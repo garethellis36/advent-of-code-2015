@@ -19,7 +19,7 @@ class Puzzle2
         $parsed = $parser->parse($this->loadInput("Day19/Puzzle1"));
 
         $runner = new ReplacementRunner($parsed['replacements']);
-        $minSteps = $runner->minimumNumberStepsForBuildingMolecule("e", $parsed['molecule']);
+        $minSteps = $runner->minimumNumberStepsForBuildingMolecule($parsed['molecule']);
 
         $this->write("Min steps: " . $minSteps);
     }
