@@ -37,7 +37,7 @@ class ReplacementRunner
     private function strpos_multiple($haystack, $needle)
     {
         if (strpos($haystack, $needle) === false) {
-            return false;
+            return [];
         }
 
         $s = 0;
@@ -68,36 +68,22 @@ class ReplacementRunner
      */
     public function minimumNumberStepsForBuildingMolecule($startString, $targetMolecule)
     {
-        if ($targetMolecule == $startString) {
-            return 0;
+        $steps = 0;
+        if ($startString === $targetMolecule) {
+            return $steps;
         }
 
-        $minSteps = 1000000;
-        foreach ($this->replacements as $to => $fromStrings) {
+        return $this->iterativelyGetPossibleReplacements($targetMolecule, $this->possibleReplacements($startString), 1);
+    }
 
-            foreach ($fromStrings as $from) {
-
-                $start = 0;
-                $positions = [];
-
-                while (($pos = strpos($targetMolecule, $from, $start)) !== false) {
-                    $positions[] = $pos;
-                    $start = $pos + 1;
-                }
-
-                foreach ($positions as $position) {
-
-                    $newString = substr_replace($targetMolecule, $to, $position, strlen($from));
-                    $steps = $this->minimumNumberStepsForBuildingMolecule($startString, $newString) + 1;
-
-                    if ($steps < $minSteps) {
-                        $minSteps = $steps;
-                    }
-                }
-
-            }
-
+    private function iterativelyGetPossibleReplacements($targetMolecule, $possibles, $steps)
+    {
+        if (in_array($targetMolecule, $possibles)) {
+            return $steps;
         }
-        return $minSteps;
+        $steps++;
+        foreach ($possibles as $possible) {
+            $this->iterativelyGetPossibleReplacements($targetMolecule, $this->possibleReplacements($possible), $steps);
+        }
     }
 }

@@ -21,10 +21,6 @@ class Puzzle1
         $runner = new ReplacementRunner($parsed['replacements']);
         $possibles = $runner->possibleReplacements($parsed['molecule']);
 
-        foreach ($possibles as $possible) {
-            $this->write($possible);
-        }
-
         $this->write("Number of possibles: " . count($possibles));
     }
 
