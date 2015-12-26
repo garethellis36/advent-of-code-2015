@@ -68,12 +68,13 @@ class ReplacementRunner
      */
     public function minimumNumberStepsForBuildingMolecule($targetMolecule)
     {
-        $allTos = [];
+        $allElements = [];
         foreach ($this->replacements as $from => $toStrings) {
-            $allTos = array_merge($allTos, $toStrings);
+            $allElements[] = $from;
+            $allElements = array_merge($allElements, $toStrings);
         }
 
-        $pattern = "/(".implode("|", $allTos).")/";
+        $pattern = "/(".implode("|", $allElements).")/";
 
         preg_match_all($pattern, $targetMolecule, $matches);
 
@@ -82,8 +83,7 @@ class ReplacementRunner
 
         //elements with 'Rn' or 'Ar'
         $bracketElements = array_filter($allElements, function ($element) {
-            return (strpos($element, 'Rn') !== false || strpos($element, 'Ar') !== false)
-                && strpos($element, 'Y') === false;
+            return (strpos($element, 'Rn') !== false && strpos($element, 'Ar') !== false);
         });
         $numberBracketElements = count($bracketElements);
 
