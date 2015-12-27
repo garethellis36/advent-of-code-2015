@@ -50,7 +50,13 @@ class SledLoader
         $waysToLoadFront = $this->doLoad($this->weights, $weightPerSection);
 
         //go through each way to load front and check we have the right combination of weights to load the sides
+        $lowestNumberOfWeights = null;
         foreach ($waysToLoadFront as $i => $wayToLoadFront) {
+
+            if ($lowestNumberOfWeights && count($wayToLoadFront) > $lowestNumberOfWeights) {
+                unset($waysToLoadFront[$i]);
+                continue;
+            }
 
             //check which weights we still have left after this way of loading the front
             $availableWeights = $this->weights;
@@ -65,6 +71,17 @@ class SledLoader
             if (empty($waysToLoadASideSection)) {
                 unset($waysToLoadFront[$i]);
                 continue;
+            }
+
+            $count = count($wayToLoadFront);
+
+            if ($lowestNumberOfWeights && $count > $lowestNumberOfWeights) {
+                unset($waysToLoadFront[$i]);
+                continue;
+            }
+
+            if (!$lowestNumberOfWeights || $count < $lowestNumberOfWeights) {
+                $lowestNumberOfWeights = $count;
             }
 
         }
