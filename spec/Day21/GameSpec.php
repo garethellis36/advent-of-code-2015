@@ -24,13 +24,10 @@ class GameSpec extends ObjectBehavior
     public function it_should_be_able_to_execute_an_entire_game(TurnTaker $turn, Player $player, Boss $boss)
     {
         $turn->take($player, $boss)->shouldBeCalled()->willReturn($boss);
-        $boss->getHitPoints()->shouldBeCalled()->willReturn(2);
-
         $turn->take($boss, $player)->shouldBeCalled()->willReturn($player);
-        $player->getHitPoints()->shouldBeCalled()->willReturn(1);
 
-        $turn->take($player, $boss)->shouldBeCalled()->willReturn($boss);
-        $boss->getHitPoints()->shouldBeCalled()->willReturn(0);
+        $boss->getHitPoints()->willReturn(2, 0);
+        $player->getHitPoints()->willReturn(1);
 
         $this->play($player, $boss)->shouldBe($player);
     }

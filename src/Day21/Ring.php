@@ -12,11 +12,16 @@ class Ring implements AttackingItemInterface, DefensiveItemInterface
      * @var
      */
     private $armourPoints;
+    /**
+     * @var
+     */
+    private $cost;
 
-    public function __construct($damagePoints, $armourPoints)
+    public function __construct($cost, $damagePoints, $armourPoints)
     {
         $this->damagePoints = $damagePoints;
         $this->armourPoints = $armourPoints;
+        $this->cost = $cost;
     }
 
     public function getArmourPoints()
@@ -27,5 +32,10 @@ class Ring implements AttackingItemInterface, DefensiveItemInterface
     public function getDamagePoints()
     {
         return $this->damagePoints;
+    }
+
+    public function getCost()
+    {
+        return $this->cost;
     }
 }

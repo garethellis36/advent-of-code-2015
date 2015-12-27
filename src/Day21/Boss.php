@@ -24,6 +24,11 @@ class Boss implements PlayerInterface
         $this->armorPoints = $armorPoints;
     }
 
+    public function isBoss()
+    {
+        return true;
+    }
+
     public function getHitPoints()
     {
         return $this->hitPoints;

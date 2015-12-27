@@ -32,6 +32,11 @@ class Player implements PlayerInterface
         $this->hitPoints = $hitPoints;
     }
 
+    public function isBoss()
+    {
+        return false;
+    }
+
     public function getHitPoints()
     {
         return $this->hitPoints;

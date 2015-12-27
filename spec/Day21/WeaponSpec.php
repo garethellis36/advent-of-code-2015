@@ -9,7 +9,7 @@ class WeaponSpec extends ObjectBehavior
 {
     public function let()
     {
-        $this->beConstructedWith(5);
+        $this->beConstructedWith(8, 5);
     }
 
     function it_is_initializable()
@@ -20,5 +20,10 @@ class WeaponSpec extends ObjectBehavior
     public function it_should_know_its_damage_points()
     {
         $this->getDamagePoints()->shouldBe(5);
+    }
+
+    public function it_should_know_its_cost()
+    {
+        $this->getCost()->shouldBe(8);
     }
 }

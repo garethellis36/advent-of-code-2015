@@ -9,4 +9,6 @@ interface PlayerInterface
     public function getDamagePoints();
 
     public function dealDamage($damagePoints);
+
+    public function isBoss();
 }
