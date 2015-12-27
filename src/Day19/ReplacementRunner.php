@@ -59,32 +59,18 @@ class ReplacementRunner
 
     public function getNumberOfElements($molecule)
     {
-        $molecule = str_replace("Rn", "", $molecule);
-        $molecule = str_replace("Ar", "", $molecule);
-        $molecule = str_replace("Y", "", $molecule);
-
-        $allElements = array_keys($this->replacements);
-        $numberElements = 0;
-        foreach ($allElements as $element) {
-            $numberElements += substr_count($molecule, $element);
-        }
-
-        return $numberElements
-            + $this->getNumberOfBracketElements($molecule)
-            + $this->getNumberOfCommaElements($molecule);
+        preg_match_all('/([A-Z][a-z]?)/', $molecule, $matches);
+        return count($matches[0]);
     }
 
     public function getNumberOfBracketElements($molecule)
     {
-        $molecule = str_replace("Rn", "(", $molecule);
-        $molecule = str_replace("Ar", "(", $molecule);
-        return substr_count($molecule, "(") + substr_count($molecule, ")");
+        return substr_count($molecule, "Rn") + substr_count($molecule, "Ar");
     }
 
     public function getNumberOfCommaElements($molecule)
     {
-        $molecule = str_replace("Y", ",", $molecule);
-        return substr_count($molecule, ",");
+        return substr_count($molecule, "Y");
     }
 
     public function minimumNumberStepsForBuildingMolecule($targetMolecule)
