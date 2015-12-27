@@ -33,9 +33,7 @@ class ReplacementRunnerSpec extends ObjectBehavior
     public function it_should_be_able_to_get_the_number_of_bracket_elements_in_a_molecule()
     {
         $this->beConstructedWith([
-            "E(F,G)" => "X",
-            "B(C,D)" => "X",
-            "A(X,X)" => "X"
+            "not" => "important",
         ]);
         $this->getNumberOfBracketElements("ARnBRnCYDArYERnFYGArAr")->shouldBe(6);
     }
@@ -43,9 +41,7 @@ class ReplacementRunnerSpec extends ObjectBehavior
     public function it_should_be_able_to_get_the_number_of_comma_elements_in_a_molecule()
     {
         $this->beConstructedWith([
-            "E(F,G)" => "X",
-            "B(C,D)" => "X",
-            "A(X,X)" => "X"
+            "not" => "important",
         ]);
         $this->getNumberOfCommaElements("ARnBRnCYDArYERnFYGArAr")->shouldBe(3);
     }
@@ -53,7 +49,7 @@ class ReplacementRunnerSpec extends ObjectBehavior
     public function it_should_be_able_to_get_the_total_number_of_elements_in_a_molecule()
     {
         $this->beConstructedWith([
-            "X" => "something",
+            "not" => "important",
 
         ]);
         $this->getNumberOfElements("ARnBRnCYDArYERnFYGArAr")->shouldBe(16);
@@ -62,7 +58,7 @@ class ReplacementRunnerSpec extends ObjectBehavior
     public function it_should_be_able_to_work_out_the_number_of_steps_to_generate_molecule_from_e()
     {
         $this->beConstructedWith([
-            "X" => "something",
+            "not" => "important",
         ]);
         $this->minimumNumberStepsForBuildingMolecule("ARnBRnCYDArYERnFYGArAr")->shouldBe(3);
     }
