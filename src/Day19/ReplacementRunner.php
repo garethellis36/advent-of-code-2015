@@ -57,45 +57,41 @@ class ReplacementRunner
         return $aStrPos;
     }
 
-    use \ConsoleTrait;
-
-    /**
-     * Reduce $molecule to $initial
-     *
-     * @param $startString
-     * @param $molecule
-     * @return int The number of steps required to reduce $molecule to $initial
-     */
-    public function minimumNumberStepsForBuildingMolecule($targetMolecule)
+    public function getNumberOfElements($molecule)
     {
-        $allElements = [];
-        foreach ($this->replacements as $from => $toStrings) {
-            $allElements[] = $from;
-            $allElements = array_merge($allElements, $toStrings);
+        $molecule = str_replace("Rn", "", $molecule);
+        $molecule = str_replace("Ar", "", $molecule);
+        $molecule = str_replace("Y", "", $molecule);
+
+        $allElements = array_keys($this->replacements);
+        $numberElements = 0;
+        foreach ($allElements as $element) {
+            $numberElements += substr_count($molecule, $element);
         }
 
-        $pattern = "/(".implode("|", $allElements).")/";
-
-        preg_match_all($pattern, $targetMolecule, $matches);
-
-        $allElements = $matches[0];
-        $numberElements = count($allElements);
-
-        //elements with 'Rn' or 'Ar'
-        $bracketElements = array_filter($allElements, function ($element) {
-            return (strpos($element, 'Rn') !== false && strpos($element, 'Ar') !== false);
-        });
-        $numberBracketElements = count($bracketElements);
-
-        //elements with 'Y'
-        $commaElements = array_filter($allElements, function ($element) {
-            return (strpos($element, 'Y') !== false);
-        });
-        $numberCommaElements = count($commaElements);
-
         return $numberElements
-                - $numberBracketElements
-                - 2 * $numberCommaElements
-                - 1;
+            + $this->getNumberOfBracketElements($molecule)
+            + $this->getNumberOfCommaElements($molecule);
+    }
+
+    public function getNumberOfBracketElements($molecule)
+    {
+        $molecule = str_replace("Rn", "(", $molecule);
+        $molecule = str_replace("Ar", "(", $molecule);
+        return substr_count($molecule, "(") + substr_count($molecule, ")");
+    }
+
+    public function getNumberOfCommaElements($molecule)
+    {
+        $molecule = str_replace("Y", ",", $molecule);
+        return substr_count($molecule, ",");
+    }
+
+    public function minimumNumberStepsForBuildingMolecule($targetMolecule)
+    {
+        return $this->getNumberOfElements($targetMolecule)
+            - $this->getNumberOfBracketElements($targetMolecule)
+            - 2*$this->getNumberOfCommaElements($targetMolecule)
+            - 1;
     }
 }

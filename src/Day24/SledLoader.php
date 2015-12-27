@@ -19,21 +19,7 @@ class SledLoader
     {
         $waysofLoadingFront = $this->loadFront($sections);
 
-        $min = array_reduce($waysofLoadingFront, function ($carry, $item) {
-
-            $count = count($item);
-            if (!$carry || $count < $carry) {
-                return $count;
-            }
-            return $carry;
-
-        });
-
-        $filtered = array_filter($waysofLoadingFront, function($weights) use ($min) {
-            return count($weights) === $min;
-        });
-
-        return array_reduce($filtered, function ($carry, $item) {
+        return array_reduce($waysofLoadingFront, function ($carry, $item) {
 
             if (!$carry || array_product($item) < $carry) {
                 return $item;
@@ -49,18 +35,22 @@ class SledLoader
         //get all ways to load front
         $waysToLoadFront = $this->doLoad($this->weights, $weightPerSection);
 
+        usort($waysToLoadFront, function ($a, $b) {
+           return count($a) > count($b);
+        });
+
+        $waysWithFewestWeights = [];
+
         //go through each way to load front and check we have the right combination of weights to load the sides
         $lowestNumberOfWeights = null;
         foreach ($waysToLoadFront as $i => $wayToLoadFront) {
 
             if ($lowestNumberOfWeights && count($wayToLoadFront) > $lowestNumberOfWeights) {
-                unset($waysToLoadFront[$i]);
-                continue;
+                break;
             }
 
             //check which weights we still have left after this way of loading the front
-            $availableWeights = $this->weights;
-            $availableWeights = array_filter($availableWeights, function ($weight) use ($wayToLoadFront) {
+            $availableWeights = array_filter($this->weights, function ($weight) use ($wayToLoadFront) {
                 return !in_array($weight, $wayToLoadFront);
             });
 
@@ -82,11 +72,12 @@ class SledLoader
 
             if (!$lowestNumberOfWeights || $count < $lowestNumberOfWeights) {
                 $lowestNumberOfWeights = $count;
+                $waysWithFewestWeights[] = $wayToLoadFront;
             }
 
         }
 
-        return $waysToLoadFront;
+        return $waysWithFewestWeights;
     }
 
     private function doLoad(array $weights, $remainingWeight, array $sequence = [])
@@ -97,11 +88,11 @@ class SledLoader
         if (empty($weights)) {
             return [];
         }
-        $container = array_shift($weights);
+        $weight = array_shift($weights);
         $sequences = $this->doLoad($weights, $remainingWeight, $sequence);
-        if ($container <= $remainingWeight) {
-            $sequence[] = $container;
-            $sequences = array_merge($sequences, $this->doLoad($weights, ($remainingWeight - $container), $sequence));
+        if ($weight <= $remainingWeight) {
+            $sequence[] = $weight;
+            $sequences = array_merge($sequences, $this->doLoad($weights, ($remainingWeight - $weight), $sequence));
         }
         return $sequences;
     }

@@ -1,58 +1,28 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: garethellis
+ * Date: 25/12/2015
+ * Time: 20:28
+ */
 
-$file = [
-    "Al => ThF",
-    "Al => ThRnFAr",
-    "B => BCa",
-    "B => TiB",
-    "B => TiRnFAr",
-    "Ca => CaCa",
-    "Ca => PB",
-    "Ca => PRnFAr",
-    "Ca => SiRnFYFAr",
-    "Ca => SiRnMgAr",
-    "Ca => SiTh",
-    "F => CaF",
-    "F => PMg",
-    "F => SiAl",
-    "H => CRnAlAr",
-    "H => CRnFYFYFAr",
-    "H => CRnFYMgAr",
-    "H => CRnMgYFAr",
-    "H => HCa",
-    "H => NRnFYFAr",
-    "H => NRnMgAr",
-    "H => NTh",
-    "H => OB",
-    "H => ORnFAr",
-    "Mg => BF",
-    "Mg => TiMg",
-    "N => CRnFAr",
-    "N => HSi",
-    "O => CRnFYFAr",
-    "O => CRnMgAr",
-    "O => HP",
-    "O => NRnFAr",
-    "O => OTi",
-    "P => CaP",
-    "P => PTi",
-    "P => SiRnFAr",
-    "Si => CaSi",
-    "Th => ThCa",
-    "Ti => BP",
-    "Ti => TiTi",
-    "e => HF",
-    "e => NAl",
-    "e => OMg"
-];
-$target = "ORnPBPMgArCaCaCaSiThCaCaSiThCaCaPBSiRnFArRnFArCaCaSiThCaCaSiThCaCaCaCaCaCaSiRnFYFArSiRnMgArCaSiRnPTiTiBFYPBFArSiRnCaSiRnTiRnFArSiAlArPTiBPTiRnCaSiAlArCaPTiTiBPMgYFArPTiRnFArSiRnCaCaFArRnCaFArCaSiRnSiRnMgArFYCaSiRnMgArCaCaSiThPRnFArPBCaSiRnMgArCaCaSiThCaSiRnTiMgArFArSiThSiThCaCaSiRnMgArCaCaSiRnFArTiBPTiRnCaSiAlArCaPTiRnFArPBPBCaCaSiThCaPBSiThPRnFArSiThCaSiThCaSiThCaPTiBSiRnFYFArCaCaPRnFArPBCaCaPBSiRnTiRnFArCaPRnFArSiRnCaCaCaSiThCaRnCaFArYCaSiRnFArBCaCaCaSiThFArPBFArCaSiRnFArRnCaCaCaFArSiRnFArTiRnPMgArF";
-array_pop($file);
+namespace Day19;
 
-$repl = array_map(function($x) {return explode(' => ', $x);}, $file);
 
-while ($target != 'e')
-    foreach ($repl as $r)
-        if (($pos = strpos($target, $r[1])) !== false AND @++$z)
-            $target = substr_replace($target, $r[0], $pos, strlen($r[1]));
+class Puzzle2
+{
+    use \InputLoaderTrait, \ConsoleTrait;
 
-echo $z;
+    public function __invoke()
+    {
+        $parser = new InstructionsParser();
+        $parsed = $parser->parse($this->loadInput("Day19/Puzzle1"));
+
+        $runner = new ReplacementRunner($parsed['replacements']);
+
+        $steps = $runner->minimumNumberStepsForBuildingMolecule($parsed['molecule']);
+
+        $this->write("Steps: " . $steps);
+    }
+
+}
