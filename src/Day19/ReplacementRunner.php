@@ -73,6 +73,18 @@ class ReplacementRunner
         return substr_count($molecule, "Y");
     }
 
+    /**
+     * Per /u/asalski on Reddit https://www.reddit.com/r/adventofcode/comments/3xflz8/day_19_solutions/
+     *
+     * Min steps = number of elements - number of 'bracket' elements - 2*number of 'comma' elements - 1
+     *
+     * An 'element' is simply a capital letter optionally followed by one or more lower case letters, e.g. 'A', 'Ba', 'Fi', etc.
+     * Bracket elements are 'Rn' and 'Ar'
+     * Comma elements are 'Y'
+     *
+     * @param $targetMolecule
+     * @return int
+     */
     public function minimumNumberStepsForBuildingMolecule($targetMolecule)
     {
         return $this->getNumberOfElements($targetMolecule)
