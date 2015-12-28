@@ -15,13 +15,18 @@ class Boss implements PlayerInterface
     /**
      * @var
      */
-    private $armorPoints;
+    private $armourPoints;
 
-    public function __construct($hitPoints, $damagePoints, $armorPoints)
+    public function __construct($hitPoints, $damagePoints, $armourPoints)
     {
         $this->hitPoints = $hitPoints;
         $this->damagePoints = $damagePoints;
-        $this->armorPoints = $armorPoints;
+        $this->armourPoints = $armourPoints;
+    }
+
+    public function resurrect($hitPoints)
+    {
+        $this->hitPoints = $hitPoints;
     }
 
     public function isBoss()
@@ -41,7 +46,7 @@ class Boss implements PlayerInterface
 
     public function dealDamage($damagePoints)
     {
-        $damagePoints = $damagePoints - $this->armorPoints;
+        $damagePoints = $damagePoints - $this->armourPoints;
         if ($damagePoints < 1) {
             $damagePoints = 1;
         }

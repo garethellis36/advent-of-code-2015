@@ -1,7 +1,7 @@
 <?php
 namespace Day21;
 
-class Puzzle1
+class Puzzle2
 {
     use \ConsoleTrait, \InputLoaderTrait, InventoryLoadingTrait;
 
@@ -17,7 +17,7 @@ class Puzzle1
         $armours = $this->getArmourCollection();
         $rings = $this->getRingCollection();
 
-        $lowestCost = null;
+        $highestCost = null;
 
         foreach ($weapons as $w => $weapon) {
 
@@ -38,15 +38,15 @@ class Puzzle1
                      */
                     $winner = $game->play($player, $boss);
 
-                    if (!$winner->isBoss()) {
+                    if ($winner->isBoss()) {
 
                         $cost = $weapon->getCost()
                                 + $armour->getCost()
                                 + $rings[$r1]->getCost()
                                 + $rings[$r2]->getCost();
 
-                        if (!$lowestCost || $cost < $lowestCost) {
-                            $lowestCost = $cost;
+                        if (!$highestCost || $cost > $highestCost) {
+                            $highestCost = $cost;
                         }
 
                     }
@@ -56,6 +56,6 @@ class Puzzle1
 
         }
 
-        $this->write("Lowest amount of gold to win: " . $lowestCost);
+        $this->write("Highest amount of gold and still losing: " . $highestCost);
     }
 }
